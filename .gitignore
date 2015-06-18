@@ -1,0 +1,5 @@
+*.iml
+library_SlidingMenu
+local.properties
+build
+.gradle
