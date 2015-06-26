@@ -185,33 +185,45 @@ public class MainActivity extends FragmentActivity {
      * 初始化Column栏目项
      */
     private void initTabColumn() {
+        //清空组件
         mRadioGroup_content.removeAllViews();
+        //检查用户订阅的频道
         int count = userChannelList.size();
+        //初始化可拖动的View
         mColumnHorizontalScrollView.setParam(this, mScreenWidth, mRadioGroup_content, shade_left, shade_right, ll_more_columns, rl_column);
+        //开始针对每个channel的初始化
         for (int i = 0; i < count; i++) {
+            //用代码生成LinearLayout布局
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(mItemWidth, LayoutParams.WRAP_CONTENT);
+            //左右各空5格像素
             params.leftMargin = 5;
             params.rightMargin = 5;
 //			TextView localTextView = (TextView) mInflater.inflate(R.layout.column_radio_item, null);
             TextView columnTextView = new TextView(this);
+            //设置字体
             columnTextView.setTextAppearance(this, R.style.top_category_scroll_view_item_text);
 //			localTextView.setBackground(getResources().getDrawable(R.drawable.top_category_scroll_text_view_bg));
             columnTextView.setBackgroundResource(R.drawable.radio_buttong_bg);
             columnTextView.setGravity(Gravity.CENTER);
             columnTextView.setPadding(5, 5, 5, 5);
             columnTextView.setId(i);
+            //根据订阅返回的结果设置标签名称
             columnTextView.setText(userChannelList.get(i).getName());
             columnTextView.setTextColor(getResources().getColorStateList(R.color.top_category_scroll_text_color_day));
+            //如果选择的column，则当前是选中的状态
             if (columnSelectIndex == i) {
                 columnTextView.setSelected(true);
             }
+            //设置点击的情况
             columnTextView.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
                     for (int i = 0; i < mRadioGroup_content.getChildCount(); i++) {
+                        //当选中某个频道的时候
                         View localView = mRadioGroup_content.getChildAt(i);
                         if (localView != v)
+
                             localView.setSelected(false);
                         else {
                             localView.setSelected(true);

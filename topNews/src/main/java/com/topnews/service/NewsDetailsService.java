@@ -26,7 +26,8 @@ public class NewsDetailsService {
 				data = "";
 				element = document.getElementById("memberArea");
 			} else {
-				element = document.getElementById("artibody");
+				element = document.getElementById("article_content");
+//				element = document.getElementsByClass("art-ctt-iframe").first();
 			}
 			if (element != null) {
 				data = data + element.toString();
