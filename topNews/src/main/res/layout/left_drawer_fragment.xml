@@ -120,7 +120,7 @@
                     style="@style/left_drawer_item_text"
                     android:drawableLeft="@drawable/ic_drawer_search"
                     android:text="@string/left_drawer_item_search"
-                    android:id="@+id/" />
+                    android:id="@+id/search" />
             </RelativeLayout>
 
             <ImageView style="@style/left_drawer_item_line" />
