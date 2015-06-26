@@ -16,11 +16,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+
+    packagingOptions{
+            exclude 'META-INF/LICENSE.txt'
+            exclude 'META-INF/NOTICE.txt'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 repositories {
     maven { url "http://nexus.dev.ofpay.com"}
     maven { url "http://jzaccone.github.io/SlidingMenu-aar" }
+    maven {
+        url "http://mvn.leancloud.cn/nexus/content/repositories/releases"
+    }
     mavenCentral()
 }
 
@@ -29,5 +41,6 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.2'
     compile 'com.android.support:support-v4:18.0.0'
     compile 'org.jsoup:jsoup:1.7.2'
+    compile 'cn.leancloud.android:avoscloud-sdk:v3.3+'
 
 }

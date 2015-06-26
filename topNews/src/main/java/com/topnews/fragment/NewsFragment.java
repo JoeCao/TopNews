@@ -1,6 +1,7 @@
 package com.topnews.fragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.w3c.dom.Text;
 
@@ -9,6 +10,8 @@ import com.topnews.DetailsActivity;
 import com.topnews.R;
 import com.topnews.adapter.NewsAdapter;
 import com.topnews.bean.NewsEntity;
+import com.topnews.remote.NewsDao;
+import com.topnews.remote.RemoteListener;
 import com.topnews.tool.Constants;
 import com.topnews.view.HeadListView;
 import com.topnews.view.TopToastView;
@@ -120,39 +123,46 @@ public class NewsFragment extends Fragment {
                 case SET_NEWSLIST:
                     detail_loading.setVisibility(View.GONE);
                     if (mAdapter == null) {
-                        mAdapter = new NewsAdapter(activity, newsList);
-                        //判断是不是城市的频道
-                        if (channel_id == Constants.CHANNEL_CITY) {
-                            //是城市频道
-                            mAdapter.setCityChannel(true);
-                            initCityChannel();
-                        }
-                    }
-                    mListView.setAdapter(mAdapter);
-                    mListView.setOnScrollListener(mAdapter);
-                    mListView.setPinnedHeaderView(LayoutInflater.from(activity).inflate(R.layout.list_item_section, mListView, false));
-                    mListView.setOnItemClickListener(new OnItemClickListener() {
-
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view,
-                                                int position, long id) {
-                            Intent intent = new Intent(activity, DetailsActivity.class);
-                            if (channel_id == Constants.CHANNEL_CITY) {
-                                if (position != 0) {
-                                    intent.putExtra("news", mAdapter.getItem(position - 1));
-                                    startActivity(intent);
-                                    activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        NewsDao.getNewsList(new RemoteListener() {
+                            @Override
+                            public void onSuccess(ArrayList<NewsEntity> items) {
+                                mAdapter = new NewsAdapter(activity, items);
+                                //判断是不是城市的频道
+                                if (channel_id == Constants.CHANNEL_CITY) {
+                                    //是城市频道
+                                    mAdapter.setCityChannel(true);
+                                    initCityChannel();
                                 }
-                            } else {
-                                intent.putExtra("news", mAdapter.getItem(position));
-                                startActivity(intent);
-                                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                mListView.setAdapter(mAdapter);
+                                mListView.setOnScrollListener(mAdapter);
+                                mListView.setPinnedHeaderView(LayoutInflater.from(activity).inflate(R.layout.list_item_section, mListView, false));
+                                mListView.setOnItemClickListener(new OnItemClickListener() {
+
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view,
+                                                            int position, long id) {
+                                        Intent intent = new Intent(activity, DetailsActivity.class);
+                                        if (channel_id == Constants.CHANNEL_CITY) {
+                                            if (position != 0) {
+                                                intent.putExtra("news", mAdapter.getItem(position - 1));
+                                                startActivity(intent);
+                                                activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                            }
+                                        } else {
+                                            intent.putExtra("news", mAdapter.getItem(position));
+                                            startActivity(intent);
+                                            activity.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                                        }
+                                    }
+                                });
+                                if (channel_id == 1) {
+                                    initNotify();
+                                }
                             }
-                        }
-                    });
-                    if (channel_id == 1) {
-                        initNotify();
+                        });
+
                     }
+
                     break;
                 default:
                     break;

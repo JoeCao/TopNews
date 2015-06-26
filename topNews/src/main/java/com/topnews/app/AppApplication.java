@@ -2,6 +2,7 @@ package com.topnews.app;
 
 import java.io.File;
 
+import com.avos.avoscloud.AVOSCloud;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -24,6 +25,10 @@ public class AppApplication extends Application {
 		super.onCreate();
 		initImageLoader(getApplicationContext());
 		mAppApplication = this;
+		String appId = "4lrycm58b7jgw0rfoxa03rdr7589eojojweu2ub0lihhxtzq";
+		String appKey = "cuyjnokfsi6vz4s87xu8u5b7p911fiur7tdm9a0p9d83w3i9";
+
+		AVOSCloud.initialize(this, appId, appKey);
 	}
 	
 	/** 获取Application */
