@@ -18,15 +18,21 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:src="@drawable/detail_loading" />
-
-    <com.topnews.view.HeadListView
-        android:id="@+id/mListView"
+    <uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ptr_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
-        android:fadingEdge="none"
-        android:scrollbars="none" />
+        android:layout_height="match_parent">
+
+        <com.topnews.view.HeadListView
+            android:id="@+id/mListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:fadingEdge="none"
+            android:scrollbars="none" />
+    </uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout>
 
     <RelativeLayout
         android:id="@+id/notify_view"

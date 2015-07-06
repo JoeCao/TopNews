@@ -35,7 +35,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class NewsFragment extends Fragment {
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
+
+public class NewsFragment extends Fragment implements OnRefreshListener {
     private final static String TAG = "NewsFragment";
     Activity activity;
     ArrayList<NewsEntity> newsList = new ArrayList<NewsEntity>();
@@ -48,6 +52,8 @@ public class NewsFragment extends Fragment {
     //Toast提示框
     private RelativeLayout notify_view;
     private TextView notify_view_text;
+
+    private PullToRefreshLayout mPullToRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,6 +114,16 @@ public class NewsFragment extends Fragment {
         notify_view = (RelativeLayout) view.findViewById(R.id.notify_view);
         notify_view_text = (TextView) view.findViewById(R.id.notify_view_text);
         item_textview.setText(text);
+
+        mPullToRefreshLayout = (PullToRefreshLayout) view.findViewById(R.id.ptr_layout);
+        // Now setup the PullToRefreshLayout
+        ActionBarPullToRefresh.from(getActivity())
+                // Mark All Children as pullable
+                .allChildrenArePullable()
+                        // Set a OnRefreshListener
+                .listener(this)
+                        // Finally commit the setup to our PullToRefreshLayout
+                .setup(mPullToRefreshLayout);
         return view;
     }
 
@@ -223,5 +239,11 @@ public class NewsFragment extends Fragment {
         // TODO Auto-generated method stub
         super.onDestroy();
         Log.d(TAG, "channel_id = " + channel_id);
+    }
+
+    @Override
+    public void onRefreshStarted(View view) {
+        Log.d("onRefresh", "view is " + view.getId());
+        mPullToRefreshLayout.setRefreshComplete();
     }
 }

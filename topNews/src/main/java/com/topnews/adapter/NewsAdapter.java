@@ -194,6 +194,7 @@ public class NewsAdapter extends BaseAdapter implements SectionIndexer, HeaderAd
                     imageLoader.displayImage(imgUrlList.get(0), mHolder.right_image, options);
                 }
             } else {
+                //组图的显示模式
                 mHolder.large_image.setVisibility(View.GONE);
                 mHolder.right_image.setVisibility(View.GONE);
                 mHolder.item_image_layout.setVisibility(View.VISIBLE);
@@ -202,9 +203,11 @@ public class NewsAdapter extends BaseAdapter implements SectionIndexer, HeaderAd
                 imageLoader.displayImage(imgUrlList.get(2), mHolder.item_image_2, options);
             }
         } else {
+            //无图的显示方式
             mHolder.right_image.setVisibility(View.GONE);
             mHolder.item_image_layout.setVisibility(View.GONE);
         }
+        //显示是否收藏的标记
         int markResID = getAltMarkResID(news.getMark(), news.getCollectStatus());
         if (markResID != -1) {
             mHolder.alt_mark.setVisibility(View.VISIBLE);
