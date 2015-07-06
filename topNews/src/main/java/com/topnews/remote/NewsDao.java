@@ -18,9 +18,11 @@ import java.util.Map;
  * Created by caozupeng on 15-6-25.
  */
 public class NewsDao {
-    public static void getNewsList(final RemoteListener listener) {
+    public static void getNewsList(int channelId, final RemoteListener listener) {
+        Log.d("NewDao", "传入的频道id为"+channelId);
         final ArrayList<NewsEntity> results = new ArrayList<NewsEntity>();
         AVQuery<AVObject> query = new AVQuery<AVObject>("News");
+        query.whereEqualTo("channel", channelId);
         query.setLimit(30);
         query.findInBackground(new FindCallback<AVObject>() {
                                    public void done(List<AVObject> avObjects, AVException e) {

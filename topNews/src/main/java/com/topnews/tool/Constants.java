@@ -123,5 +123,5 @@ public class Constants {
 		return cityList;
 	}
 	/* 频道中区域 如杭州 对应的栏目ID */
-	public final static int CHANNEL_CITY = 3;
+	public final static int CHANNEL_CITY = 99;
 }
