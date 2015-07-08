@@ -6,23 +6,26 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
-import com.topnews.R;
 import com.topnews.bean.NewsEntity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by caozupeng on 15-6-25.
  */
 public class NewsDao {
-    public static void getNewsList(int channelId, final RemoteListener listener) {
-        Log.d("NewDao", "传入的频道id为"+channelId);
+
+    public static void getNewsList(int channelId, Date lastNewCreateAt, final RemoteListener listener) {
+        Log.d("NewDao", "传入的频道id=" + channelId + ";传入的lastNewCreateAt=" + lastNewCreateAt);
         final ArrayList<NewsEntity> results = new ArrayList<NewsEntity>();
         AVQuery<AVObject> query = new AVQuery<AVObject>("News");
         query.whereEqualTo("channel", channelId);
+        if (lastNewCreateAt != null) {
+            query.whereGreaterThan("createdAt", lastNewCreateAt);
+        }
+        query.orderByDescending("createdAt");
         query.setLimit(30);
         query.findInBackground(new FindCallback<AVObject>() {
                                    public void done(List<AVObject> avObjects, AVException e) {
@@ -51,6 +54,8 @@ public class NewsDao {
                                                news.setSource(avObject.getString("source"));
                                                news.setSummary(avObject.getString("summary"));
                                                news.setMark(i);
+                                               news.setCreateAt(avObject.getCreatedAt());
+//                                               Log.d("NewDao", "create at "+news.getCreateAt());
                                                results.add(news);
                                                i++;
                                            }

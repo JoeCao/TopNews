@@ -69,6 +69,7 @@ public class ChannelManage {
      * @return 数据库存在用户配置 ? 数据库内的用户选择频道 : 默认用户选择频道 ;
      */
     public List<ChannelItem> getUserChannel() {
+//        initDefaultChannel();
         Object cacheList = channelDao.listCache(SQLHelper.SELECTED + "= ?", new String[]{"1"});
         if (cacheList != null && !((List) cacheList).isEmpty()) {
             userExist = true;

@@ -470,4 +470,9 @@ public class NewsAdapter extends BaseAdapter implements SectionIndexer, HeaderAd
         int index = Arrays.binarySearch(mPositions.toArray(), position);
         return index >= 0 ? index : -index - 2;
     }
+
+    public void updateResults(ArrayList<NewsEntity> newsList){
+        this.newsList = newsList;
+        notifyDataSetChanged();
+    }
 }
