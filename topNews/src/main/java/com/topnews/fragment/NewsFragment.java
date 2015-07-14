@@ -162,13 +162,13 @@ public class NewsFragment extends Fragment implements OnRefreshListener, RemoteL
     }
 
     /* 初始化通知栏目*/
-    private void initNotify() {
+    private void initNotify(final int count) {
         new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
                 // TODO Auto-generated method stub
-                notify_view_text.setText(String.format(getString(R.string.ss_pattern_update), 10));
+                notify_view_text.setText(String.format(getString(R.string.ss_pattern_update), count));
                 notify_view.setVisibility(View.VISIBLE);
                 new Handler().postDelayed(new Runnable() {
 
@@ -239,6 +239,7 @@ public class NewsFragment extends Fragment implements OnRefreshListener, RemoteL
      */
     @Override
     public void onSuccess(ArrayList<NewsEntity> items) {
+        int count = items.size();
         items.addAll(newsList);
         newsList = items;
         if (items.size() > 0) {
@@ -274,7 +275,7 @@ public class NewsFragment extends Fragment implements OnRefreshListener, RemoteL
             }
         });
         if (channel_id == 1) {
-            initNotify();
+            initNotify(count);
         }
     }
 }
