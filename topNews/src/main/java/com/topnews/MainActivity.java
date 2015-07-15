@@ -9,7 +9,6 @@ import com.topnews.bean.ChannelItem;
 import com.topnews.bean.ChannelManage;
 import com.topnews.fragment.NewsFragment;
 import com.topnews.tool.BaseTools;
-import com.topnews.tool.Constants;
 import com.topnews.view.ColumnHorizontalScrollView;
 import com.topnews.view.DrawerView;
 
@@ -118,21 +117,32 @@ public class MainActivity extends FragmentActivity {
         //该控件实现新闻栏目的拖动
         mColumnHorizontalScrollView = (ColumnHorizontalScrollView) findViewById(R.id.mColumnHorizontalScrollView);
         mRadioGroup_content = (LinearLayout) findViewById(R.id.mRadioGroup_content);
+        //增加栏目的那个布局
         ll_more_columns = (LinearLayout) findViewById(R.id.ll_more_columns);
         rl_column = (RelativeLayout) findViewById(R.id.rl_column);
+        //增加栏目的加号
         button_more_columns = (ImageView) findViewById(R.id.button_more_columns);
+        //该控件用于左右滑动新闻频道
         mViewPager = (ViewPager) findViewById(R.id.mViewPager);
+        //头部栏目的左边边缘阴影
         shade_left = (ImageView) findViewById(R.id.shade_left);
+        //栏目的右边边缘阴影
         shade_right = (ImageView) findViewById(R.id.shade_right);
+        //左上角的头像
         top_head = (ImageView) findViewById(R.id.top_head);
+        //右上角的个人设置
         top_more = (ImageView) findViewById(R.id.top_more);
+        //顶部的刷新按钮
         top_refresh = (ImageView) findViewById(R.id.top_refresh);
+        //进度条
         top_progress = (ProgressBar) findViewById(R.id.top_progress);
         button_more_columns.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                //打开个人设置的Activity
                 Intent intent_channel = new Intent(getApplicationContext(), ChannelActivity.class);
+                //要求返回结果
                 startActivityForResult(intent_channel, CHANNELREQUEST);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -163,13 +173,13 @@ public class MainActivity extends FragmentActivity {
                 }
             }
         });
-        setChangelView();
+        setChangeView();
     }
 
     /**
      * 当栏目项发生变化时候调用
      */
-    private void setChangelView() {
+    private void setChangeView() {
         initColumnData();
         initTabColumn();
         initFragment();
@@ -350,7 +360,7 @@ public class MainActivity extends FragmentActivity {
         switch (requestCode) {
             case CHANNELREQUEST:
                 if (resultCode == CHANNELRESULT) {
-                    setChangelView();
+                    setChangeView();
                 }
                 break;
 
