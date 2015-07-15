@@ -45,7 +45,7 @@ public class BaseActivity extends Activity {
 	}
 	
 	/*
-	 * 返回
+	 * 返回,该方法被多个继承BaseActivity的layout调用
 	 */
 	public void doBack(View view) {
 		onBackPressed();

@@ -115,6 +115,7 @@ public class MainActivity extends FragmentActivity {
      * 初始化layout控件
      */
     private void initView() {
+        //该控件实现新闻栏目的拖动
         mColumnHorizontalScrollView = (ColumnHorizontalScrollView) findViewById(R.id.mColumnHorizontalScrollView);
         mRadioGroup_content = (LinearLayout) findViewById(R.id.mRadioGroup_content);
         ll_more_columns = (LinearLayout) findViewById(R.id.ll_more_columns);
@@ -271,6 +272,7 @@ public class MainActivity extends FragmentActivity {
     private void initFragment() {
         fragments.clear();//清空
         int count = userChannelList.size();
+        //初始化所有的fragment
         for (int i = 0; i < count; i++) {
             Bundle data = new Bundle();
             data.putString("text", userChannelList.get(i).getName());
